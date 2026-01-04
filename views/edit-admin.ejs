@@ -1,0 +1,191 @@
+<%- include('./header.ejs') %>
+
+<!--begin::App Main-->
+<main class="app-main">
+  <!--begin::App Content Header-->
+  <div class="app-content-header">
+    <!--begin::Container-->
+    <div class="container-fluid">
+      <!--begin::Row-->
+      <div class="row">
+        <div class="col-sm-6">
+          <h3 class="mb-0">Edit Admin</h3>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Add Admin
+            </li>
+          </ol>
+        </div>
+      </div>
+      <!--end::Row-->
+    </div>
+    <!--end::Container-->
+  </div>
+  <!--end::App Content Header-->
+  <!--begin::App Content-->
+  <div class="app-content">
+    <!--begin::Container-->
+    <div class="container-fluid">
+      <!--begin::Row-->
+      <div class="row g-4">
+        <!--begin::Col-->
+        <div class="col-md-6">
+          <!--begin::Quick Example-->
+          <div class="card card-primary card-outline mb-4">
+            <%var editName=oldAdminData.name.split(" ")%>
+            <!--begin::Form-->
+            <form
+              method="post"
+              action="/updateAdmin/<%=oldAdminData.id%>"
+              enctype="multipart/form-data"
+            >
+              <!--begin::Body-->
+              <div class="card-body">
+                <div class="mb-3">
+                  <label class="form-label">First Name</label>
+                  <input
+                    type="text"
+                    value="<%=editName[0]%>"
+                    name="fname"
+                    class="form-control"
+                    placeholder="Enter Your First Name"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    name="lname"
+                    value="<%=editName[1]%>"
+                    class="form-control"
+                    placeholder="Enter Your Last Name"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    name="email"
+                    value="<%=oldAdminData.email%>"
+                    class="form-control"
+                    placeholder="Enter Your Email Address"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Password</label
+                  >
+                  <input
+                    type="password"
+                    name="password"
+                    value="<%=oldAdminData.password%>"
+                    class="form-control"
+                    placeholder="Enter Your Password"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Gender</label
+                  >
+                  <div class="form-check">
+                    <label class="form-check-label" for="maleRadio">
+                      <input class="form-check-input" type="radio" name="gender"
+                      value="male" id="maleRadio" <%
+                      if(oldAdminData.gender=='male') {%> checked <% } %> />
+                      Male
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label" for="femaleRadio">
+                      <input class="form-check-input" type="radio" name="gender"
+                      value="female" id="femaleRadio" <%
+                      if(oldAdminData.gender=='female') {%> checked <% } %> />
+                      Female
+                    </label>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Hobby</label
+                  >
+                  <div class="form-check">
+                    <label class="form-check-label" for="reading">
+                      <input class="form-check-input" type="checkbox"
+                      name="hobby" value="reading" id="reading" <%
+                      if(oldAdminData.hobby.includes('reading')) {%> checked <%
+                      } %> /> Reading
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label" for="writing">
+                      <input class="form-check-input" type="checkbox"
+                      name="hobby" value="writing" id="writing" <%
+                      if(oldAdminData.hobby.includes('writing')) {%> checked <%
+                      } %> /> Writing
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label" for="travelling">
+                      <input class="form-check-input" type="checkbox"
+                      name="hobby" value="travelling" id="travelling" <%
+                      if(oldAdminData.hobby.includes('travelling')) {%> checked
+                      <% } %> /> Travelling
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label" for="surfing">
+                      <input class="form-check-input" type="checkbox"
+                      name="hobby" value="surfing" id="surfing" <%
+                      if(oldAdminData.hobby.includes('surfing')) {%> checked <%
+                      } %> /> Surfing
+                    </label>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Description</label>
+                  <textarea name="desc" class="form-control" required>
+<%=oldAdminData.desc%></textarea
+                  >
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Profile Image</label>
+                  <input
+                    type="file"
+                    name="avtar"
+                    class="form-control"
+                    required
+                  />
+                  <img src="<%= oldAdminData.avtar %>" height="100" width="100" />
+                </div>
+              </div>
+              <!--end::Body-->
+              <!--begin::Footer-->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Update</button>
+              </div>
+              <!--end::Footer-->
+            </form>
+            <!--end::Form-->
+          </div>
+          <!--end::Quick Example-->
+        </div>
+        <!--end::Col-->
+      </div>
+      <!--end::Row-->
+    </div>
+    <!--end::Container-->
+  </div>
+  <!--end::App Content-->
+</main>
+<!--end::App Main-->
+
+<%- include('./footer.ejs') %>
