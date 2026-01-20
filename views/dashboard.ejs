@@ -179,3 +179,21 @@
     <!--end::App Main-->
 
 <%- include('./footer.ejs') %>
+
+<% if (locals.flash.success && locals.flash.success.length > 0) { %>
+<script>
+  Swal.fire({
+    title: "<%= locals.flash.success[0] %>",
+    icon: "success"
+  });
+</script>
+<% } %>
+
+<% if (locals.flash.error && locals.flash.error.length > 0) { %>
+<script>
+  Swal.fire({
+    title: "<%= locals.flash.error[0] %>",
+    icon: "error"
+  });
+</script>
+<% } %>
