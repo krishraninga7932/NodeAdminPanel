@@ -1,0 +1,108 @@
+<%- include('./header.ejs') %>
+
+<main class="app-main">
+  <div class="app-content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3 class="mb-0">Trash Products</h3>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item active">Trash Products</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-content">
+    <div class="container-fluid">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title">Deleted Products</h3>
+        </div>
+
+        <div class="card-body p-0">
+          <table class="table table-striped align-middle">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Price</th>
+                <th>Deleted At</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% if(trashData.length === 0){ %>
+                <tr>
+                  <td colspan="8" class="text-center py-4">
+                    <strong>No deleted products found.</strong>
+                  </td>
+                </tr>
+              <% } else { %>
+                <% trashData.forEach((product, index) => { %>
+                  <tr>
+                    <td><%= index + 1 %></td>
+
+                    <td>
+                      <img 
+                        src="/uploads/productImages/<%= product.image %>"
+                        width="60" height="60"
+                        style="object-fit:cover;border-radius:6px;">
+                    </td>
+
+                    <td><%= product.pname %></td>
+
+                    <td>
+                      <%= product.subCategoryID && product.subCategoryID.categoryID 
+                        ? product.subCategoryID.categoryID.cname 
+                        : "Category Deleted" %>
+                    </td>
+
+                    <td>
+                      <%= product.subCategoryID 
+                        ? product.subCategoryID.sname 
+                        : "SubCategory Deleted" %>
+                    </td>
+
+                    <td>₹ <%= product.price %></td>
+
+                    <td>
+                      <%= product.updatedAt.toLocaleDateString() %>
+                    </td>
+
+                    <td>
+                      <a 
+                        href="/product/restore/<%= product._id %>"
+                        class="btn btn-sm btn-success"
+                        onclick="return confirm('Restore this product?')">
+                        Restore
+                      </a>
+
+                      <a 
+                        href="/product/hard-delete/<%= product._id %>"
+                        class="btn btn-sm btn-danger"
+                        onclick="return confirm('This will permanently delete the product. Continue?')">
+                        Delete Permanently
+                      </a>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('./footer.ejs') %>

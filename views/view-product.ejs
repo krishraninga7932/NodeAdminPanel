@@ -1,0 +1,148 @@
+<%- include('./header.ejs') %>
+
+<main class="app-main">
+  <!-- Header -->
+  <div class="app-content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3 class="mb-0">View Products</h3>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item active">View Products</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="app-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h3 class="card-title">Product List</h3>
+              <div class="color-dot ms-auto"></div>
+            </div>
+
+            <div class="card-body p-0">
+              <table class="table table-striped align-middle">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Sub Category</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% if(productData.length === 0){ %>
+                    <tr>
+                      <td colspan="8" class="text-center py-4">
+                        <strong>No products found.</strong><br>
+                        <a href="/product/add-product" class="btn btn-sm btn-primary mt-2">
+                          Add Your First Product
+                        </a>
+                      </td>
+                    </tr>
+                  <% } else { %>
+
+                    <% productData.forEach((product, index) => { %>
+                      <tr>
+                        <td><%= index + 1 %></td>
+
+                        <td>
+                          <img 
+                            src="/uploads/productImages/<%= product.image %>"
+                            width="60"
+                            height="60"
+                            style="object-fit:cover;border-radius:6px;"
+                          >
+                        </td>
+
+                        <td><%= product.pname %></td>
+
+                        <td>
+                          <%= product.subCategoryID && product.subCategoryID.categoryID 
+                            ? product.subCategoryID.categoryID.cname 
+                            : "Category Deleted" %>
+                        </td>
+
+                        <td>
+                          <%= product.subCategoryID 
+                            ? product.subCategoryID.sname 
+                            : "SubCategory Deleted" %>
+                        </td>
+
+                        <td>₹ <%= product.price %></td>
+
+                        <td>
+                          <% if(product.status === "Active"){ %>
+                            <span class="badge bg-success">Active</span>
+                          <% } else { %>
+                            <span class="badge bg-danger">Deactive</span>
+                          <% } %>
+                        </td>
+
+                        <td>
+                          <a href="/product/edit/<%= product._id %>" class="btn btn-sm btn-edit">
+                            Edit
+                          </a>
+                          <a 
+                            href="/product/delete/<%= product._id %>"
+                            onclick="return confirm('Are you sure you want to delete this product?')"
+                            class="btn btn-sm btn-delete"
+                          >
+                            Delete
+                          </a>
+                        </td>
+                      </tr>
+                    <% }) %>
+
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('./footer.ejs') %>
+
+<!-- Sweet Alert Messages -->
+<% if (locals.flash.success && locals.flash.success.length > 0) { %>
+<script>
+  Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: "<%= locals.flash.success[0] %>",
+    timer: 2000,
+    showConfirmButton: false
+  });
+</script>
+<% } %>
+
+<% if (locals.flash.error && locals.flash.error.length > 0) { %>
+<script>
+  Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: "<%= locals.flash.error[0] %>",
+    timer: 2000,
+    showConfirmButton: false
+  });
+</script>
+<% } %>

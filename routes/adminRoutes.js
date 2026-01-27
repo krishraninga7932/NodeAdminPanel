@@ -83,6 +83,9 @@ route.use("/category",require("./categoryRoutes"));
 // SubCategory routes
 route.use("/subcategory",require("./subCategoryRoutes"));
 
+// Product routes
+route.use("/product",require("./ProductRoutes"));
+
 
 
 

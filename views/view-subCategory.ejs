@@ -55,7 +55,7 @@
                   <tr>
                     <td><%=index+1%></td>
                     <td><%= subCategory.sname %></td>
-                    <td><%= subCategory.categoryID.cname %></td>
+                    <td><%= subCategory.categoryID ? subCategory.categoryID.cname : "Category Deleted" %></td>
                     <td><%= subCategory.status %></td>
                     <td>
                       <a
