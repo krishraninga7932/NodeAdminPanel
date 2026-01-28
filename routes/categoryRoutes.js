@@ -12,4 +12,11 @@ route.post('/insertCategory',passport.checkAuthentication, categoryCtl.insertCat
 
 route.get('/view-category',passport.checkAuthentication, categoryCtl.viewCategory);
 
+route.get(
+  "/delete/:id",
+  passport.checkAuthentication,
+  categoryCtl.deleteCategory,
+);
+
+
 module.exports = route;

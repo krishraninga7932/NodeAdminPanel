@@ -1,0 +1,147 @@
+<%- include('./header.ejs') %>
+
+<main class="app-main">
+  <div class="app-content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3 class="mb-0">Edit Product</h3>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+            <li class="breadcrumb-item"><a href="/product/view-product">View Products</a></li>
+            <li class="breadcrumb-item active">Edit Product</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-content">
+    <div class="container-fluid">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card card-primary card-outline mb-4">
+
+            <form 
+              method="post"
+              action="/product/update/<%= product._id %>"
+              enctype="multipart/form-data"
+            >
+              <div class="card-body">
+
+                <!-- Product Name -->
+                <div class="mb-3">
+                  <label class="form-label">Product Name</label>
+                  <input 
+                    type="text"
+                    name="pname"
+                    value="<%= product.pname %>"
+                    class="form-control"
+                    required
+                  />
+                </div>
+
+                <!-- Price -->
+                <div class="mb-3">
+                  <label class="form-label">Price</label>
+                  <input 
+                    type="number"
+                    name="price"
+                    value="<%= product.price %>"
+                    class="form-control"
+                    required
+                  />
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                  <label class="form-label">Description</label>
+                  <textarea 
+                    name="description"
+                    class="form-control"
+                    rows="4"
+                    required
+                  ><%= product.description %></textarea>
+                </div>
+
+                <!-- Category -->
+                <div class="mb-3">
+                  <label class="form-label">Category</label>
+                  <select class="form-control" name="categoryID" disabled>
+                    <% Categories.forEach(cat => { %>
+                      <option 
+                        value="<%= cat._id %>"
+                        <%= product.subCategoryID.categoryID._id.toString() === cat._id.toString() ? "selected" : "" %>
+                      >
+                        <%= cat.cname %>
+                      </option>
+                    <% }) %>
+                  </select>
+                  <small class="text-muted">Category can’t be changed directly</small>
+                </div>
+
+                <!-- Sub Category -->
+                <div class="mb-3">
+                  <label class="form-label">Sub Category</label>
+                  <select class="form-control" name="subCategoryID" required>
+                    <% subCategories.forEach(sub => { %>
+                      <option 
+                        value="<%= sub._id %>"
+                        <%= product.subCategoryID._id.toString() === sub._id.toString() ? "selected" : "" %>
+                      >
+                        <%= sub.sname %>
+                      </option>
+                    <% }) %>
+                  </select>
+                </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                  <label class="form-label">Status</label>
+                  <select class="form-control" name="status">
+                    <option value="Active" <%= product.status === "Active" ? "selected" : "" %>>Active</option>
+                    <option value="Deactive" <%= product.status === "Deactive" ? "selected" : "" %>>Deactive</option>
+                  </select>
+                </div>
+
+                <!-- Image -->
+                <div class="mb-3">
+                  <label class="form-label">Product Image</label>
+                  <input 
+                    type="file"
+                    name="image"
+                    class="form-control"
+                  />
+                  <div class="mt-2">
+                    <img 
+                      src="/uploads/productImages/<%= product.image %>" 
+                      height="100" 
+                      width="100"
+                      style="object-fit:cover;border-radius:6px;"
+                    />
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">
+                  Update Product
+                </button>
+                <a href="/product/view-product" class="btn btn-secondary">
+                  Cancel
+                </a>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('./footer.ejs') %>
