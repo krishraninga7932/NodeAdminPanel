@@ -48,7 +48,7 @@ app.use((req, res, next) => {
   };
   next();
 });
-
+ 
 app.use("/", require("./routes/adminRoutes"));
 
 // upload for images for view

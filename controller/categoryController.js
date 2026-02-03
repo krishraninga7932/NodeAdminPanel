@@ -67,3 +67,30 @@ module.exports.deleteCategory = async (req, res) => {
     return res.redirect("/category/view-category");
   }
 };
+
+module.exports.editCategory = async (req, res) => {
+  try {
+    let categoryData = await Category.findById(req.params.id);
+
+    return res.render("edit-category", {
+      categoryData,
+      adminData: req.user,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.redirect("/category/view-category");
+  }
+};
+
+module.exports.updateCategory = async (req, res) => {
+  try {
+    await Category.findByIdAndUpdate(req.params.id, req.body);
+
+    req.flash("success", "Category Updated Successfully!");
+    return res.redirect("/category/view-category");
+  } catch (err) {
+    console.log(err);
+    req.flash("error", "Error in Updating Category!");
+    return res.redirect("/category/view-category");
+  }
+};

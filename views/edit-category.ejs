@@ -1,0 +1,97 @@
+<%- include('./header.ejs') %>
+
+<main class="app-main">
+  <!-- PAGE HEADER -->
+  <div class="app-content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3 class="mb-0">Edit Category</h3>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item">
+              <a href="/dashboard">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/category/view-category">View Categories</a>
+            </li>
+            <li class="breadcrumb-item active">
+              Edit Category
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="app-content">
+    <div class="container-fluid">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card card-primary card-outline mb-4">
+
+            <!-- FORM -->
+            <form 
+              method="post"
+              action="/category/update-category/<%= categoryData._id %>"
+            >
+              <div class="card-body">
+
+                <!-- Category Name -->
+                <div class="mb-3">
+                  <label class="form-label">Category Name</label>
+                  <input 
+                    type="text"
+                    name="cname"
+                    value="<%= categoryData.cname %>"
+                    class="form-control"
+                    required
+                  />
+                </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                  <label class="form-label">Status</label>
+                  <select class="form-control" name="status">
+                    <option 
+                      value="Active"
+                      <%= categoryData.status === "Active" ? "selected" : "" %>
+                    >
+                      Active
+                    </option>
+                    <option 
+                      value="Deactive"
+                      <%= categoryData.status === "Deactive" ? "selected" : "" %>
+                    >
+                      Deactive
+                    </option>
+                  </select>
+                </div>
+
+              </div>
+
+              <!-- FOOTER -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">
+                  Update Category
+                </button>
+                <a 
+                  href="/category/view-category"
+                  class="btn btn-secondary"
+                >
+                  Cancel
+                </a>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('./footer.ejs') %>

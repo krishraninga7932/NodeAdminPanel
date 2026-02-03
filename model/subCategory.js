@@ -7,7 +7,7 @@ const SubCategorySchema = new mongoose.Schema(
       required: true,
     },
     status: {
-      type: String,
+      type: String, 
       default: "Active",
     },
     categoryID: {

@@ -1,0 +1,121 @@
+<%- include('./header.ejs') %>
+
+<main class="app-main">
+  <!-- PAGE HEADER -->
+  <div class="app-content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3 class="mb-0">Edit Sub Category</h3>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-end">
+            <li class="breadcrumb-item">
+              <a href="/dashboard">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/subCategory/view-subCategory">View Sub Categories</a>
+            </li>
+            <li class="breadcrumb-item active">
+              Edit Sub Category
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="app-content">
+    <div class="container-fluid">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card card-primary card-outline mb-4">
+
+            <!-- FORM -->
+            <form 
+              method="post"
+              action="/subCategory/update-subCategory/<%= subCategoryData._id %>"
+            >
+              <div class="card-body">
+
+                <!-- Sub Category Name -->
+                <div class="mb-3">
+                  <label class="form-label">Sub Category Name</label>
+                  <input 
+                    type="text"
+                    name="sname"
+                    value="<%= subCategoryData.sname %>"
+                    class="form-control"
+                    required
+                  />
+                </div>
+
+                <!-- Category -->
+                <div class="mb-3">
+                  <label class="form-label">Category</label>
+                  <select 
+                    name="categoryID"
+                    class="form-control"
+                    required
+                  >
+                    <% Categories.forEach(cat => { %>
+                      <option 
+                        value="<%= cat._id %>"
+                        <%= subCategoryData.categoryID.toString() === cat._id.toString() ? "selected" : "" %>
+                      >
+                        <%= cat.cname %>
+                      </option>
+                    <% }) %>
+                  </select>
+                </div>
+
+                <!-- Status (SELECT OPTION) -->
+                <div class="mb-3">
+                  <label class="form-label">Status</label>
+                  <select 
+                    name="status"
+                    class="form-control"
+                    required
+                  >
+                    <option 
+                      value="Active"
+                      <%= subCategoryData.status === "Active" ? "selected" : "" %>
+                    >
+                      Active
+                    </option>
+
+                    <option 
+                      value="Deactive"
+                      <%= subCategoryData.status === "Deactive" ? "selected" : "" %>
+                    >
+                      Deactive
+                    </option>
+                  </select>
+                </div>
+
+              </div>
+
+              <!-- FOOTER -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">
+                  Update Sub Category
+                </button>
+                <a 
+                  href="/subCategory/view-subCategory"
+                  class="btn btn-secondary"
+                >
+                  Cancel
+                </a>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include('./footer.ejs') %>

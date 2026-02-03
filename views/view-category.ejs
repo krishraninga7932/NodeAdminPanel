@@ -47,7 +47,7 @@
                     <th>Category Name</th>
                     <th>Status</th>
                     <th>Action</th>
-                  </tr>
+                  </tr> 
                 </thead>
                 <tbody>
                   <%categoryData.forEach((category,index)=>{%>
@@ -57,7 +57,7 @@
                     <td><%= category.status %></td>
                     <td>
                       <a
-                        href="/category/edit/<%=category.id%>"
+                        href="/category/edit-category/<%=category.id%>"
                         class="btn btn-sm btn-edit"
                         >Edit</a
                       >
